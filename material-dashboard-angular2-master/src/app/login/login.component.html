@@ -1,39 +1,23 @@
-<div class="text-center">
-    <!-- Button HTML (to Trigger Modal) -->
-    <a href="#myModal" class="trigger-btn" data-toggle="modal">Login</a>
-  </div>
-  
-  <!-- Modal HTML -->
-  <div id="myModal" class="modal fade">
-    <div class="modal-dialog modal-login">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="avatar">
-            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar">
-          </div>				
-          <h4 class="modal-title">Member Login</h4>	
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        </div>
-  
-        <!-- FORMULAIRE Angular -->
-        <div class="modal-body">
-          <form (ngSubmit)="onLogin()">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Username" [(ngModel)]="email" name="email" required>
+<div class="login-container">
+  <div class="login-content">
+    <h1 class="login-title">Bienvenue sur Monoprix Finance</h1>
+    <h2 class="login-subtitle">Gérez vos dépenses en toute simplicité</h2>
+    
+    <div class="login-page">
+      <div class="content">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+              <!-- Animation de logo -->
+              <div class="logo-animation" *ngIf="showLogo">
+                <div class="logo-container">
+                  <img src="assets/img/monoprix-logo.png" alt="Monoprix Logo" class="logo-image">
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password" required>
-            </div>        
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Login</button>
-            </div>
-          </form>
-        </div>
-  
-        <div class="modal-footer">
-          <a href="#">Forgot Password?</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
