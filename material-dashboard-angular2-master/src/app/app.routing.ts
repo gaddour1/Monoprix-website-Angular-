@@ -23,7 +23,7 @@ const routes: Routes =[
   },*/
   {path:'login',component:LoginComponent},
   {path:'financial',component:FinancialComponent},
-  {path:'SupplierFinancial',component:SupplierFinancialComponent}
+  {path:'supplierinancial',component:SupplierFinancialComponent}
 ];
 
 @NgModule({

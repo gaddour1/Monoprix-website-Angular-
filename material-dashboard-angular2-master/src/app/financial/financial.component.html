@@ -1,15 +1,18 @@
 <div class="wrapper">
+
     <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-wrapper">
-            <!-- Logo -->
-            <div class="logo">
-                <a href="https://www.monoprix.fr" class="simple-text">
-                    <div class="logo-img">
-                        <img src="assets/img/monoprix-logo.png" alt="Monoprix Logo" />
-                    </div>
-                </a>
-            </div>
+ <!-- Sidebar -->
+ <div class="sidebar">
+    <div class="sidebar-wrapper">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="https://www.monoprix.fr" class="simple-text">
+                <div class="logo-img">
+                    <img src="assets/img/monoprix-logo.png" alt="Monoprix Logo" style="height: 50px; width: 200px;" />
+                </div>
+            
+            </a>
+        </div>
 
             <!-- Recherche -->
             <div class="search">
@@ -27,31 +30,31 @@
             <nav class="nav">
                 <div class="nav-item">
                     <a class="nav-link active" routerLink="/financial">
-                        <i class="material-icons">dashboard</i>
+                        <i class="material-icons trend-stable">dashboard</i>
                         <p>Tableau de bord</p>
                     </a>
                 </div>
                 <div class="nav-item">
                     <a class="nav-link" routerLink="/financial/sales">
-                        <i class="material-icons">trending_up</i>
+                        <i class="material-icons trend-up">trending_up</i>
                         <p>Ventes</p>
                     </a>
                 </div>
                 <div class="nav-item">
                     <a class="nav-link" routerLink="/financial/expenses">
-                        <i class="material-icons">trending_down</i>
+                        <i class="material-icons trend-down">trending_down</i>
                         <p>Dépenses</p>
                     </a>
                 </div>
                 <div class="nav-item">
                     <a class="nav-link" routerLink="/financial/inventory">
-                        <i class="material-icons">inventory</i>
+                        <i class="material-icons trend-stable">inventory</i>
                         <p>Stock</p>
                     </a>
                 </div>
                 <div class="nav-item">
                     <a class="nav-link" routerLink="/financial/reports">
-                        <i class="material-icons">assessment</i>
+                        <i class="material-icons trend-up">assessment</i>
                         <p>Rapports</p>
                     </a>
                 </div>
@@ -90,38 +93,47 @@
         </div>
     </div>
 
+
+    <br>
+
     <!-- Main Content -->
     <div class="main-content">
         <app-navbar></app-navbar>
 
         <!-- Bannière DAF -->
         <div class="dashboard-header">
+            <!-- Background Waves -->
+            <div class="waves-bg">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
             <div class="header-content">
                 <div class="header-title">
                     <h1>Tableau de décision DAF</h1>
                     <p class="subtitle">Tableau de bord financier et décisionnel</p>
                 </div>
-                
-                <!-- Panneau d'indicateurs 
+
+                <!-- Panneau d'indicateurs à côté du titre -->
                 <div class="financial-panel">
                     <div class="financial-indicators">
                         <div class="indicator up">
                             <div class="indicator-icon">
-                                <i class="material-icons">trending_up</i>
+                                <i class="material-icons trend-up">trending_up</i>
                             </div>
                             <div class="indicator-value">+15%</div>
                             <div class="indicator-label">Chiffre d'affaires</div>
                         </div>
                         <div class="indicator down">
                             <div class="indicator-icon">
-                                <i class="material-icons">trending_down</i>
+                                <i class="material-icons trend-down">trending_down</i>
                             </div>
                             <div class="indicator-value">-8%</div>
                             <div class="indicator-label">Coûts opérationnels</div>
                         </div>
                         <div class="indicator">
                             <div class="indicator-icon">
-                                <i class="material-icons">trending_flat</i>
+                                <i class="material-icons trend-stable">trending_flat</i>
                             </div>
                             <div class="indicator-value">+2%</div>
                             <div class="indicator-label">Marge brute</div>
@@ -129,8 +141,8 @@
                     </div>
                 </div>
             </div>
-        </div>
--->
+        </div> 
+
         <!-- Power BI Embedded Report -->
         <div class="powerbi-wrapper">
             <iframe title="Power BI Report" 
@@ -157,5 +169,64 @@
         width: 100%;
         height: 100%;
     }
-</style>
 
+    /* Panneau d'indicateurs à côté du titre */
+    .dashboard-header .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px; /* Espace entre le titre et le panneau */
+    }
+
+    .financial-panel {
+        display: flex;
+        gap: 15px;
+    }
+
+    /* Animation d'apparition des indicateurs */
+    .financial-indicators {
+        display: flex;
+        gap: 20px;
+        opacity: 0;
+        transform: translateX(-30px); /* Effet de départ vers la gauche */
+        animation: slideIn 1s ease-out forwards; /* Animation de glissement */
+    }
+
+    @keyframes slideIn {
+        to {
+            opacity: 1;
+            transform: translateX(0); /* Revenir à la position d'origine */
+        }
+    }
+
+    /* Style des indicateurs */
+    .indicator {
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #f7f7f7;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .indicator.up {
+        background-color: #e0ffe0;
+    }
+
+    .indicator.down {
+        background-color: #ffe0e0;
+    }
+
+    .indicator-icon {
+        font-size: 32px;
+    }
+
+    .indicator-value {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .indicator-label {
+        font-size: 14px;
+        color: #666;
+    }
+</style>

@@ -6,6 +6,10 @@
     --monoprix-gray: #4a4a4a;
     --monoprix-gray-light: #666666;
     --monoprix-white: #ffffff;
+    --wave-color: rgba(255, 255, 255, 0.1);
+    --trend-up-color: #4caf50;
+    --trend-down-color: #e30613;
+    --trend-stable-color: #fdd835;
 }
 
 /* Sidebar */
@@ -30,20 +34,26 @@
 
     .logo {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 45px;
+        padding: 30px 0;
         
         .logo-container {
             width: 100%;
-            max-width: 200px;
+            max-width: 4000px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 25px;
             
             .logo-image {
                 width: 100%;
                 height: auto;
-                max-height: 80px;
+                max-height: 150px;
                 object-fit: contain;
                 animation: fadeIn 0.5s ease-out;
+                transition: transform 0.3s ease;
+                
+                &:hover {
+                    transform: scale(1.05);
+                }
             }
         }
     }
@@ -99,47 +109,35 @@
                 overflow: hidden;
                 
                 &:hover {
-                    background: rgba(227, 6, 19, 0.1);
-                    color: var(--monoprix-red);
+                    background: rgba(255, 255, 255, 0.1);
+                    color: #fff;
                     
-                    &:before {
-                        transform: translateX(0);
+                    .material-icons {
+                        transform: translateX(5px);
                     }
                 }
-
-                &.active {
-                    color: var(--monoprix-red);
-                    background: rgba(227, 6, 19, 0.2);
-                    
-                    &:before {
-                        transform: translateX(0);
-                    }
-                }
-
-                &:before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 4px;
-                    height: 100%;
-                    background: var(--monoprix-red);
-                    transform: translateX(-100%);
+                
+                .material-icons {
+                    margin-right: 10px;
+                    font-size: 20px;
                     transition: transform 0.3s ease;
+                    
+                    &.trend-up {
+                        color: var(--trend-up-color);
+                    }
+                    
+                    &.trend-down {
+                        color: var(--trend-down-color);
+                    }
+                    
+                    &.trend-stable {
+                        color: var(--trend-stable-color);
+                    }
                 }
-
-                i {
-                    margin-right: 15px;
-                    font-size: 1.3rem;
-                    width: 28px;
-                    text-align: center;
-                    transition: color 0.3s ease;
-                }
-
+                
                 p {
                     margin: 0;
-                    font-size: 0.95rem;
-                    font-weight: 500;
+                    font-size: 14px;
                 }
             }
         }
@@ -281,6 +279,145 @@
     }
 }
 
+/* Background Waves */
+.dashboard-header {
+    position: relative;
+    
+    .waves-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .wave {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50% 50% 0 0;
+        transform-origin: bottom;
+        animation: waveAnimation 8s linear infinite;
+        opacity: 0.8;
+    }
+
+    .wave:nth-child(1) {
+        animation-delay: 0s;
+    }
+
+    .wave:nth-child(2) {
+        animation-delay: 2s;
+    }
+
+    .wave:nth-child(3) {
+        animation-delay: 4s;
+    }
+}
+
+@keyframes waveAnimation {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateX(-1000px) translateY(100px) rotate(360deg);
+    }
+}
+
+@keyframes arrowUp {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes arrowDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes arrowSide {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Animations financières */
+.financial-animations {
+    width: 100%;
+    max-width: 800px;
+    
+    .chart-container {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+        
+        .chart-line, .chart-bar, .chart-pie {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        
+        .chart-line {
+            position: relative;
+            
+            &::before {
+                content: '↑';
+                position: absolute;
+                font-size: 2rem;
+                color: #2ecc71;
+                animation: arrowUp 2s infinite;
+            }
+        }
+        
+        .chart-bar {
+            position: relative;
+            
+            &::before {
+                content: '↓';
+                position: absolute;
+                font-size: 2rem;
+                color: #e74c3c;
+                animation: arrowDown 2s infinite;
+            }
+        }
+        
+        .chart-pie {
+            position: relative;
+            
+            &::before {
+                content: '→';
+                position: absolute;
+                font-size: 2rem;
+                color: #3498db;
+                animation: arrowSide 2s infinite;
+            }
+        }
+    }
+}
+
 /* Main Content */
 .main-content {
     margin-left: 260px;
@@ -338,165 +475,92 @@
         }
 
         .financial-indicators {
+            display: flex;
+            gap: 20px;
+            
             .indicator {
                 background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                box-shadow: var(--shadow-md);
-            align-items: center;
-            position: relative;
-            z-index: 1;
-            
-            .header-title {
-                h1 {
-                    color: #fff;
-                    font-size: 2.2rem;
-                    font-weight: 700;
-                    margin: 0;
-                    margin-bottom: 10px;
-                    animation: slideIn 1s ease-out;
+                padding: 15px;
+                border-radius: 15px;
+                text-align: center;
+                width: 140px;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+                
+                &:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                    transform: translateY(-5px);
                 }
                 
-                .subtitle {
-                    color: rgba(255, 255, 255, 0.8);
-                    font-size: 1.1rem;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(
+                        45deg,
+                        rgba(255, 255, 255, 0.1) 0%,
+                        rgba(255, 255, 255, 0) 100%
+                    );
+                    transform: translateX(-100%);
+                    transition: transform 0.3s ease;
+                }
+                
+                &:hover::before {
+                    transform: translateX(0);
+                }
+                
+                i {
+                    font-size: 1.5rem;
+                    margin-bottom: 5px;
+                }
+                
+                span {
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: #fff;
+                    animation: numberPulse 2s infinite;
+                }
+                
+                p {
                     margin: 0;
-                    font-weight: 500;
-                    animation: fadeIn 1s ease-out 0.2s;
+                    font-size: 0.9rem;
+                    color: rgba(255, 255, 255, 0.8);
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
                 }
             }
-
-            .financial-animations {
-                width: 100%;
-                max-width: 800px;
-                
-                .chart-container {
-                    display: flex;
-                    gap: 30px;
-                    margin-bottom: 30px;
-                    
-                    .chart-line, .chart-bar, .chart-pie {
-                        width: 100px;
-                        height: 100px;
-                        position: relative;
+            
+            .up .indicator-value::before {
+                content: '↑';
+                color: var(--trend-up-color);
+            }
+            
+            .down .indicator-value::before {
+                content: '↓';
+                color: var(--trend-down-color);
+            }
+            
+            .indicator {
+                .indicator-icon {
+                    i.trend-up {
+                        color: var(--trend-up-color);
                     }
                     
-                    .chart-line {
-                        position: relative;
-                        
-                        &::before {
-                            content: '↑';
-                            position: absolute;
-                            font-size: 2rem;
-                            color: #2ecc71;
-                            animation: arrowUp 2s infinite;
-                        }
+                    i.trend-down {
+                        color: var(--trend-down-color);
                     }
                     
-                    .chart-bar {
-                        position: relative;
-                        
-                        &::before {
-                            content: '↓';
-                            position: absolute;
-                            font-size: 2rem;
-                            color: #e74c3c;
-                            animation: arrowDown 2s infinite;
-                        }
-                    }
-                    
-                    .chart-pie {
-                        position: relative;
-                        
-                        &::before {
-                            content: '→';
-                            position: absolute;
-                            font-size: 2rem;
-                            color: #3498db;
-                            animation: arrowSide 2s infinite;
-                        }
-                    }
-                }
-
-                .financial-indicators {
-                    display: flex;
-                    gap: 20px;
-                    
-                    .indicator {
-                        background: rgba(255, 255, 255, 0.1);
-                        padding: 15px;
-                        border-radius: 15px;
-                        text-align: center;
-                        width: 140px;
-                        transition: all 0.3s ease;
-                        position: relative;
-                        overflow: hidden;
-                        
-                        &:hover {
-                            background: rgba(255, 255, 255, 0.2);
-                            transform: translateY(-5px);
-                        }
-                        
-                        &::before {
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background: linear-gradient(
-                                45deg,
-                                rgba(255, 255, 255, 0.1) 0%,
-                                rgba(255, 255, 255, 0) 100%
-                            );
-                            transform: translateX(-100%);
-                            transition: transform 0.3s ease;
-                        }
-                        
-                        &:hover::before {
-                            transform: translateX(0);
-                        }
-                        
-                        i {
-                            font-size: 1.5rem;
-                            margin-bottom: 5px;
-                            
-                            &.material-icons {
-                                &.trending_up { 
-                                    color: #2ecc71;
-                                    animation: pulse 2s infinite;
-                                }
-                                &.trending_down { 
-                                    color: #e74c3c;
-                                    animation: pulse 2s infinite;
-                                }
-                                &.trending_flat { 
-                                    color: #f1c40f;
-                                    animation: pulse 2s infinite;
-                                }
-                            }
-                        }
-                        
-                        span {
-                            font-size: 1.2rem;
-                            font-weight: 600;
-                            color: #fff;
-                            animation: numberPulse 2s infinite;
-                        }
-                        
-                        p {
-                            margin: 0;
-                            font-size: 0.9rem;
-                            color: rgba(255, 255, 255, 0.8);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                            animation: textFade 2s infinite;
-                        }
+                    i.trend-stable {
+                        color: var(--trend-stable-color);
                     }
                 }
             }
         }
-    }
-}        
+
         .header-content {
             display: flex;
             justify-content: space-between;
@@ -700,4 +764,19 @@
         height: 100%;
         border: none;
     }
-}}
+}}}
+
+
+/* Power BI */
+.powerbi-wrapper {
+    width: 100%;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+    margin-top: 20px;
+    
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+}
